@@ -182,9 +182,7 @@ public class PriorityQueueProject
         {
             System.out.print(setAIntersection.poll() + " ");
         }
-
     }
-
 }
 
 
@@ -194,6 +192,7 @@ public class PriorityQueueProject
 Better handling of input, use regex to pick out numbers and not rely on strictly single space.
 Reduce redundant loops and copies
 
+Organize with specialized methods to make the code easier to read.
 
 
 

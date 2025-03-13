@@ -1,5 +1,6 @@
+import java.util.PriorityQueue;
 import java.util.Scanner;
-import java.util.*;
+import java.util.Iterator;
 
 public class PriorityQueueProject
 {
@@ -7,103 +8,98 @@ public class PriorityQueueProject
 
     public static void main(String[] args)
     {
-        PriorityQueue<Integer> setA = new PriorityQueue<Integer>();
+        PriorityQueue<Integer> setA = new PriorityQueue<>();
         PriorityQueue<Integer> setB = new PriorityQueue<>();
 
+        // --- Read and validate user input ---
         System.out.print("Enter integers for priority queue 1: ");
-
-        //First Set
-        String input = sc.nextLine();
-        String[] tokens = input.split(" ");
-
-        try
-        {
-            for (String num : tokens)
-            {
-                setA.offer((Integer.parseInt(num)));
-            }
-
-        } catch (NumberFormatException ex)
-        {
-            System.out.println("[Error][Invalid Number][First Set]: " + ex.getMessage());
-            System.exit(1);
-        }
+        readValidNumbers(setA);
 
         System.out.print("Enter integers for priority queue 2: ");
+        readValidNumbers(setB);
 
-        //Second Set
-        input = sc.nextLine();
-        tokens = input.split(" ");
+        // --- Compute and display set operations ---
+        System.out.print("The union of the two priority queues is: ");
+        PriorityQueue<Integer> setAUnion = new PriorityQueue<>(setA);
+        setAUnion.addAll(setB);
+        printQueue(setAUnion);
 
-        try
+        System.out.print("\nThe difference of the two priority queues is: ");
+        PriorityQueue<Integer> setADifference = new PriorityQueue<>(setA);
+        removeMatchingElements(setADifference, setB);
+        printQueue(setADifference);
+
+        System.out.print("\nThe intersection of the two priority queues is: ");
+        PriorityQueue<Integer> setAIntersection = new PriorityQueue<>(setA);
+        retainMatchingElements(setAIntersection, setB);
+        printQueue(setAIntersection);
+    }
+
+    private static void readValidNumbers(PriorityQueue<Integer> queue)
+    {
+        while (true)
         {
-            for (String num : tokens)
+            String input = sc.nextLine().trim();
+            String[] tokens = input.split("[^0-9]+"); //Split by any non-digit
+
+            boolean validNumberFound = false;
+            for (String token : tokens)
             {
-                setB.offer((Integer.parseInt(num)));
+                if (!token.isEmpty())
+                {
+                    try
+                    {
+                        queue.offer(Integer.parseInt(token));
+                        validNumberFound = true;
+                    } catch (NumberFormatException ignored)
+                    {
+                        // Ignoring non-number values
+                    }
+                }
             }
 
-        } catch (NumberFormatException ex)
-        {
-            System.out.println("[Error][Invalid Number][Second Set]: " + ex.getMessage());
-            System.exit(1);
+            if (validNumberFound)
+            {
+                break;
+            } else
+            {
+                System.out.print("[ERROR] No valid numbers found. Please re-enter: ");
+            }
         }
+    }
 
-        // --- Union Values
-        PriorityQueue<Integer> setAUnion = new PriorityQueue<Integer>();
-        for (Integer num : setA)
-        {
-            setAUnion.offer(num);
-        }
-
-        for (Integer val : setB)
-        {
-            setAUnion.offer(val);
-        }
-
-        System.out.println("The union of the two priority queues is");
-        while (setAUnion.size() > 0)
-        {
-            System.out.print(setAUnion.remove() + " ");
-        }
-
-        // --- Set DIFFERENCE 
-        System.out.println("\nThe difference of the two priority queues is: ");
-
-        PriorityQueue<Integer> setADifference = new PriorityQueue<>(setA);
-
-        Iterator<Integer> iterator = setADifference.iterator();
+    private static void removeMatchingElements(PriorityQueue<Integer> sourceQueue,
+            PriorityQueue<Integer> comparisonQueue)
+    {
+        Iterator<Integer> iterator = sourceQueue.iterator();
         while (iterator.hasNext())
         {
-            if (setB.contains(iterator.next()))
+            if (comparisonQueue.contains(iterator.next()))
             {
                 iterator.remove();
             }
         }
-
-        while (!setADifference.isEmpty())
-        {
-            System.out.print(setADifference.poll() + " ");
-        }
-
-        // --- Set Intersection
-        System.out.println("\nThe intersection of the two priroty queues is");
-
-        PriorityQueue<Integer> setAIntersection = new PriorityQueue<>(setA);
-        Iterator<Integer> iIterator = setAIntersection.iterator();
-
-        while (iIterator.hasNext())
-        {
-            if (!setB.contains(iIterator.next()))
-            {
-                iIterator.remove();
-            }
-        }
-
-        while (!setAIntersection.isEmpty())
-        {
-            System.out.print(setAIntersection.poll() + " ");
-        }
-
     }
 
+    private static void retainMatchingElements(PriorityQueue<Integer> sourceQueue,
+            PriorityQueue<Integer> comparisonQueue)
+    {
+        Iterator<Integer> iterator = sourceQueue.iterator();
+        while (iterator.hasNext())
+        {
+            if (!comparisonQueue.contains(iterator.next()))
+            {
+                iterator.remove();
+            }
+        }
+    }
+
+    private static void printQueue(PriorityQueue<Integer> queue)
+    {
+        while (!queue.isEmpty())
+        {
+            System.out.print(queue.poll() + " ");
+        }
+        System.out.println();
+    }
 }

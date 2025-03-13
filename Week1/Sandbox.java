@@ -1,6 +1,8 @@
 import java.util.LinkedList;
 import java.util.ListIterator;
+import java.util.PriorityQueue;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 public class Sandbox
@@ -28,6 +30,25 @@ public class Sandbox
         {
             System.out.println("\nTask with given priority not found.");
         }
+
+        System.out.println("\n\n Quiz Code");
+
+        PriorityQueue<Integer> queue = new PriorityQueue<Integer>(Arrays.asList(60, 10, 50, 30, 40, 20));
+
+        for (int i : queue)
+        {
+            System.out.print(i + " ");
+        }
+
+        System.out.println("\n Question 3 \n");
+
+        PriorityQueue<Integer> newQueue = new PriorityQueue<Integer>(Arrays.asList(60, 10, 50, 30, 40, 20));
+
+        while (!newQueue.isEmpty())
+        {
+            System.out.print(newQueue.poll() + " ");
+        }
+
     }
 
     public static int binarySearch(ArrayList<Task> tasks, int priority)

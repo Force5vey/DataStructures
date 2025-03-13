@@ -48,8 +48,7 @@ public class PriorityQueueProject
             System.exit(1);
         }
 
-        // display union
-
+        // --- Union Values
         PriorityQueue<Integer> setAUnion = new PriorityQueue<Integer>();
         for (Integer num : setA)
         {
@@ -61,31 +60,48 @@ public class PriorityQueueProject
             setAUnion.offer(val);
         }
 
-        System.out.println("Set A Union: ");
+        System.out.println("The union of the two priority queues is");
         while (setAUnion.size() > 0)
         {
             System.out.print(setAUnion.remove() + " ");
         }
 
-        System.out.println("\nSet A Difference: ");
+        // --- Set DIFFERENCE 
+        System.out.println("\nThe difference of the two priority queues is: ");
 
-        PriorityQueue<Integer> setADifference = new PriorityQueue<Integer>();
-        for (Integer num : setA)
-        {
-            setADifference.offer(num);
-        }
+        PriorityQueue<Integer> setADifference = new PriorityQueue<>(setA);
 
-        for (Integer val : setA)
+        Iterator<Integer> iterator = setADifference.iterator();
+        while (iterator.hasNext())
         {
-            if (setB.contains(val))
+            if (setB.contains(iterator.next()))
             {
-                setADifference.remove(val);
+                iterator.remove();
             }
         }
 
-        while (setADifference.size() > 0)
+        while (!setADifference.isEmpty())
         {
-            System.out.println(setADifference.remove() + " ");
+            System.out.print(setADifference.poll() + " ");
+        }
+
+        // --- Set Intersection
+        System.out.println("\nThe intersection of the two priroty queues is");
+
+        PriorityQueue<Integer> setAIntersection = new PriorityQueue<>(setA);
+        Iterator<Integer> iIterator = setAIntersection.iterator();
+
+        while (iIterator.hasNext())
+        {
+            if (!setB.contains(iIterator.next()))
+            {
+                iIterator.remove();
+            }
+        }
+
+        while (!setAIntersection.isEmpty())
+        {
+            System.out.print(setAIntersection.poll() + " ");
         }
 
     }

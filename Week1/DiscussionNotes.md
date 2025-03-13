@@ -62,6 +62,137 @@ moving on to the difference. I will need a copy of setA (so I don't lose the val
 
 iterate though setA, do a check if setB contains that value, if it does, remove from set a copy, when finished I can print all values in set a copy.
 
+Ran into a problem with my initial try where I was iterating over setA and if it is in setB it would remove from teh copy of setA: setADifference. But since PriorityQueue doesn't have set order like List, this is creating unexpected behavior and ultimately an empty list for me. I am going to utilize an iterator and go from there. Working through the Iterator, much like the text examples handled the issue and is able to handle the removes while iterating through the queue
+
+Moving on to display the intersection.
+
+This, according the sample output, will display all values (even if duplicates) of set a if it is also in set b.
+
+I created a copy of the original setA again. Again using an iterator object, I loop through the copy set. if seB does NOT contain the item (at least one instance) then it is removed, this handles duplicates correctly due to it iterating throgh the entire list.
+
+
+Submitted my initial rough in to the auto-grader. It passed all tests.
+
+Now, since this is a discussion post, I want to put a little additional effort than just getting green on tests. As you see in my code from my just first show step through, it is repeating a lot that could possibly be made more efficient. Also, you will notice as I went I updated how I was making the copies etc. So, going to work through this a bit, clean it up, standardize some of the practices and check out the text and the java docs to ensure I am using available methods to make it better:
+
+<First Shot Rough Draft (passes tests)>
+
+import java.util.Scanner;
+import java.util.*;
+
+public class PriorityQueueProject
+{
+    static Scanner sc = new Scanner(System.in);
+
+    public static void main(String[] args)
+    {
+        PriorityQueue<Integer> setA = new PriorityQueue<Integer>();
+        PriorityQueue<Integer> setB = new PriorityQueue<>();
+
+        System.out.print("Enter integers for priority queue 1: ");
+
+        //First Set
+        String input = sc.nextLine();
+        String[] tokens = input.split(" ");
+
+        try
+        {
+            for (String num : tokens)
+            {
+                setA.offer((Integer.parseInt(num)));
+            }
+
+        } catch (NumberFormatException ex)
+        {
+            System.out.println("[Error][Invalid Number][First Set]: " + ex.getMessage());
+            System.exit(1);
+        }
+
+        System.out.print("Enter integers for priority queue 2: ");
+
+        //Second Set
+        input = sc.nextLine();
+        tokens = input.split(" ");
+
+        try
+        {
+            for (String num : tokens)
+            {
+                setB.offer((Integer.parseInt(num)));
+            }
+
+        } catch (NumberFormatException ex)
+        {
+            System.out.println("[Error][Invalid Number][Second Set]: " + ex.getMessage());
+            System.exit(1);
+        }
+
+        // --- Union Values
+        PriorityQueue<Integer> setAUnion = new PriorityQueue<Integer>();
+        for (Integer num : setA)
+        {
+            setAUnion.offer(num);
+        }
+
+        for (Integer val : setB)
+        {
+            setAUnion.offer(val);
+        }
+
+        System.out.println("The union of the two priority queues is");
+        while (setAUnion.size() > 0)
+        {
+            System.out.print(setAUnion.remove() + " ");
+        }
+
+        // --- Set DIFFERENCE 
+        System.out.println("\nThe difference of the two priority queues is: ");
+
+        PriorityQueue<Integer> setADifference = new PriorityQueue<>(setA);
+
+        Iterator<Integer> iterator = setADifference.iterator();
+        while (iterator.hasNext())
+        {
+            if (setB.contains(iterator.next()))
+            {
+                iterator.remove();
+            }
+        }
+
+        while (!setADifference.isEmpty())
+        {
+            System.out.print(setADifference.poll() + " ");
+        }
+
+        // --- Set Intersection
+        System.out.println("\nThe intersection of the two priroty queues is");
+
+        PriorityQueue<Integer> setAIntersection = new PriorityQueue<>(setA);
+        Iterator<Integer> iIterator = setAIntersection.iterator();
+
+        while (iIterator.hasNext())
+        {
+            if (!setB.contains(iIterator.next()))
+            {
+                iIterator.remove();
+            }
+        }
+
+        while (!setAIntersection.isEmpty())
+        {
+            System.out.print(setAIntersection.poll() + " ");
+        }
+
+    }
+
+}
+
+
+
+ a few things I'm going to improve from the rough draft:
+
+Better handling of input, use regex to pick out numbers and not rely on strictly single space.
+Reduce redundant loops and copies
 
 
 

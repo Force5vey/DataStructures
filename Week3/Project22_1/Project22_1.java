@@ -9,32 +9,34 @@ public class Project22_1
     public static void main(String[] args)
     {
         System.out.print("Enter a string: ");
-
         String userInput = sc.nextLine();
         userInput.toLowerCase();
 
-        StringAnalyzer analyzer = new StringAnalyzer();
-
+        // -- Naive Approach with String Concatenation
         long startTime = 0, endTime = 0;
-
         startTime = System.nanoTime();
-
-        String subString = analyzer.getConsecutiveSubString(userInput);
-
+        String naiveResult = findMaxIncreasingNaive(userInput);
         endTime = System.nanoTime();
-
-        System.out.print("Maximum consecutive increasingly ordered substring is ");
-        System.out.println(subString);
+        double naiveTimeMs = (endTime - startTime) / 1_000_000.0;
 
         System.out.println();
+        System.out.println("Naive Approach:");
+        System.out.println("Result: " + naiveResult);
+        System.out.printf("Runtime: %,.3f ms%n", naiveTimeMs);
 
-        System.out.println("Runtime: " + (endTime - startTime) / 1000 + " microseconds");
+        // -- StringBuilder approach
+        startTime = System.nanoTime();
+        String builderResult = findMaxIncreasingBuilder(userInput);
+        endTime = System.nanoTime();
+        double builderTimeMs = (endTime - startTime) / 1_000_000.0;
+
+        System.out.println();
+        System.out.println("StringBuilder Approach:");
+        System.out.println("Result: " + builderResult);
+        System.out.printf("Runtime: %,.3f ms%n", builderTimeMs);
     }
-}
 
-class StringAnalyzer
-{
-    public String getConsecutiveSubString(String userString)
+    public static String findMaxIncreasingNaive(String userString)
     {
         String currentSubstring = "";
         String maxSubstring = "";
@@ -66,6 +68,36 @@ class StringAnalyzer
             maxSubstring = currentSubstring;
         }
 
+        return maxSubstring;
+    }
+
+    public static String findMaxIncreasingBuilder(String userString)
+    {
+        StringBuilder current = new StringBuilder();
+        String maxSubstring = "";
+        char prevChar = 0;
+
+        for (char c : userString.toCharArray())
+        {
+            if (c > prevChar)
+            {
+                current.append(c);
+            } else
+            {
+                if (current.length() > maxSubstring.length())
+                {
+                    maxSubstring = current.toString();
+                }
+                current.setLength(0);
+                current.append(c);
+            }
+            prevChar = c;
+        }
+
+        if (current.length() > maxSubstring.length())
+        {
+            maxSubstring = current.toString();
+        }
         return maxSubstring;
     }
 }

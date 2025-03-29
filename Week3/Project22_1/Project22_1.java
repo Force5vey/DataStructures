@@ -15,11 +15,20 @@ public class Project22_1
 
         StringAnalyzer analyzer = new StringAnalyzer();
 
+        long startTime = 0, endTime = 0;
+
+        startTime = System.nanoTime();
+
         String subString = analyzer.getConsecutiveSubString(userInput);
+
+        endTime = System.nanoTime();
 
         System.out.print("Maximum consecutive increasingly ordered substring is ");
         System.out.println(subString);
 
+        System.out.println();
+
+        System.out.println("Runtime: " + (endTime - startTime) / 1000 + " microseconds");
     }
 }
 

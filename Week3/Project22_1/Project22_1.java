@@ -42,10 +42,11 @@ class StringAnalyzer
                 if (currentSubstring.length() > maxSubstring.length())
                 {
                     maxSubstring = currentSubstring;
-
-                    currentSubstring = "";
-                    currentSubstring += c;
                 }
+
+                currentSubstring = "";
+                currentSubstring += c;
+
             }
 
             prevChar = c;

@@ -51,6 +51,11 @@ class StringAnalyzer
             prevChar = c;
         }
 
+        if (currentSubstring.length() > maxSubstring.length())
+        {
+            maxSubstring = currentSubstring;
+        }
+
         return maxSubstring;
     }
 }

@@ -1,3 +1,5 @@
+// Code copied from discussion <class mate> 
+// just checking it out, made no changes so far.
 public class CustomLinkedList<E>
 {
     private Node<E> head;

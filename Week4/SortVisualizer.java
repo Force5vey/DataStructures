@@ -7,27 +7,27 @@ public class SortVisualizer
 {
     public static void main(String[] args) throws InterruptedException
     {
-        // int[] array = new Random().ints(30, 1, 50).toArray();
-        // bubbleSort(array);
+        int[] array = new Random().ints(30, 1, 50).toArray();
+        bubbleSort(array);
 
-        // Thread.sleep(1500);
+        Thread.sleep(1500);
 
-        // int[] array2 = new Random().ints(30, 1, 100).toArray();
-        // insertionSort(array2);
+        int[] array2 = new Random().ints(30, 1, 100).toArray();
+        insertionSort(array2);
 
-        // Thread.sleep(1500);
+        Thread.sleep(1500);
 
-        // int[] array3 = new Random().ints(30, 1, 100).toArray();
-        // selectionSort(array3);
+        int[] array3 = new Random().ints(30, 1, 100).toArray();
+        selectionSort(array3);
 
-        // Thread.sleep(1500);
+        Thread.sleep(1500);
 
-        // int[] array4 = new Random().ints(100, 1, 100).toArray();
-        // mergeSort(array4);
+        int[] array4 = new Random().ints(100, 1, 100).toArray();
+        mergeSort(array4);
 
-        // int[] array5 = new Random().ints(600, 1, 100).toArray();
-        // ForkJoinPool pool = ForkJoinPool.commonPool();
-        // pool.invoke(new ParallelMergeSort(array5, 0, array5.length - 1));
+        int[] array5 = new Random().ints(600, 1, 100).toArray();
+        ForkJoinPool pool = ForkJoinPool.commonPool();
+        pool.invoke(new ParallelMergeSort(array5, 0, array5.length - 1));
 
         Thread.sleep(1500);
         int[] array6 = new Random().ints(30, 1, 100).toArray();

@@ -1,12 +1,49 @@
 package umgc.sorts;
 
+import java.util.concurrent.RecursiveAction;
 import umgc.PrimaryController;
 
-public class MergeSort
+public class ParallelMergeSort extends RecursiveAction
 {
-    public static void sort(int[] arr) throws InterruptedException
+    private static final int THRESHOLD = 500;
+    private int[] arr;
+    private int left;
+    private int right;
+
+    public ParallelMergeSort(int[] arr, int left, int right)
     {
-        mergeSort(arr, 0, arr.length - 1);
+        this.arr = arr;
+        this.left = left;
+        this.right = right;
+    }
+
+    @Override
+    protected void compute()
+    {
+        if (right - left < THRESHOLD)
+        {
+            try
+            {
+                mergeSort(arr, left, right);
+            } catch (InterruptedException e)
+            {
+                Thread.currentThread().interrupt();
+            }
+        } else
+        {
+            int mid = (left + right) / 2;
+            ParallelMergeSort leftTask = new ParallelMergeSort(arr, left, mid);
+            ParallelMergeSort rightTask = new ParallelMergeSort(arr, mid + 1, right);
+            invokeAll(leftTask, rightTask);
+
+            try
+            {
+                merge(arr, left, mid, right);
+            } catch (InterruptedException e)
+            {
+                Thread.currentThread().interrupt();
+            }
+        }
     }
 
     private static void mergeSort(int[] arr, int left, int right) throws InterruptedException
@@ -51,8 +88,8 @@ public class MergeSort
                 j++;
             }
             k++;
+            // If displayed from multiple threads, it can flicker a lot:
             PrimaryController.displayArray(arr);
-            Thread.sleep(10);
         }
 
         while (i < n1)
@@ -60,7 +97,6 @@ public class MergeSort
             arr[k] = leftArray[i];
             i++;
             k++;
-            //    PrimaryController.displayArray(arr);
         }
 
         while (j < n2)
@@ -68,9 +104,7 @@ public class MergeSort
             arr[k] = rightArray[j];
             j++;
             k++;
-            // PrimaryController.displayArray(arr);
         }
-
         PrimaryController.displayArray(arr);
     }
 }

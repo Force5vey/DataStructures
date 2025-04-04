@@ -18,9 +18,7 @@ public class MergeSortTest
     @Test 
     public void mergeSortTest()
     {
-        MergeSort mS = new MergeSort();
 
-        assertEquals(1, mS.mergeSort(2));
     }
 
 }

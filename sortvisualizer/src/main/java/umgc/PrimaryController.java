@@ -2,11 +2,14 @@ package umgc;
 
 import java.io.IOException;
 import javafx.fxml.FXML;
+import umgc.sorts.BubbleSort;
 
-public class PrimaryController {
+public class PrimaryController
+{
 
     @FXML
-    private void switchToSecondary() throws IOException {
-        App.setRoot("secondary");
+    public static void displayArray(int[] arr)
+    {
+    
     }
 }

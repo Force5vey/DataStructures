@@ -1,6 +1,9 @@
 package umgc;
  
 import org.junit.jupiter.api.Test;
+
+import umgc.sorts.MergeSort;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MergeSortTest
@@ -17,7 +20,7 @@ public class MergeSortTest
     {
         MergeSort mS = new MergeSort();
 
-        assertEquals(1, mS.MergeSort(2));
+        assertEquals(1, mS.mergeSort(2));
     }
 
 }

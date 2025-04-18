@@ -18,4 +18,10 @@ public class PrimaryController
     {
         App.setRoot("bst");
     }
+
+    @FXML
+    private void handleGoToHuffman() throws IOException
+    {
+        App.setRoot("huffman");
+    }
 }

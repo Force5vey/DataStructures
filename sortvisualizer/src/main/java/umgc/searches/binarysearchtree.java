@@ -1,5 +1,6 @@
 package umgc.searches;
 
-public class binarysearchtree {
-    
+public class binarysearchtree
+{
+
 }

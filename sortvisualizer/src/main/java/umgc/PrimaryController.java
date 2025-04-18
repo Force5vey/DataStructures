@@ -2,7 +2,6 @@ package umgc;
 
 import java.io.IOException;
 import javafx.fxml.FXML;
-import umgc.sorts.BubbleSort;
 
 public class PrimaryController
 {
@@ -10,6 +9,13 @@ public class PrimaryController
     @FXML
     public static void displayArray(int[] arr)
     {
-    
+        // placeholder for the sort visualizations.
+        // They will need to get shifted to their own page.
+    }
+
+    @FXML
+    private void handleGoToBST() throws IOException
+    {
+        App.setRoot("bst");
     }
 }

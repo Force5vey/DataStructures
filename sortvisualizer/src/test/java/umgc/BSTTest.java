@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import umgc.sorts.BubbleSort;
 
-public class BST
+public class BSTTest
 {
     @Test
     void testBinarySearchTree() throws InterruptedException

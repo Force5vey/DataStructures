@@ -2,7 +2,7 @@ package umgc.searches;
 
 import umgc.models.TreeNode;
 
-public class BST<E extends Comparable<E>>
+public class BST<E extends Comparable<E>> implements Iterable<E>
 {
     protected TreeNode<E> root;
     protected int size = 0;
@@ -10,6 +10,12 @@ public class BST<E extends Comparable<E>>
     public BST()
     {
 
+    }
+
+    @Override
+    public java.util.Iterator<E> iterator()
+    {
+        return new BSTIterator();
     }
 
     public TreeNode<E> getRoot()
@@ -139,5 +145,54 @@ public class BST<E extends Comparable<E>>
         }
         size--;
         return true;
+    }
+
+    private class BSTIterator implements java.util.Iterator<E>
+    {
+        private java.util.Stack<TreeNode<E>> stack = new java.util.Stack<>();
+
+        public BSTIterator()
+        {
+            TreeNode<E> current = root;
+            while (current != null)
+            {
+                stack.push(current);
+                current = current.left;
+            }
+        }
+
+        @Override
+        public boolean hasNext()
+        {
+            return !stack.isEmpty();
+        }
+
+        @Override
+        public E next()
+        {
+            if (!hasNext())
+            {
+                throw new java.util.NoSuchElementException();
+            }
+            TreeNode<E> node = stack.pop();
+            E result = node.element;
+
+            if (node.right != null)
+            {
+                TreeNode<E> current = node.right;
+                while (current != null)
+                {
+                    stack.push(current);
+                    current = current.left;
+                }
+            }
+            return result;
+        }
+
+        @Override
+        public void remove()
+        {
+            throw new UnsupportedOperationException("remove() not supported. Use BST.delete() instead");
+        }
     }
 }

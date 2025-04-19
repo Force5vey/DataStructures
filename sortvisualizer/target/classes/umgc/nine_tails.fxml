@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
+
+<VBox spacing="10" xmlns="http://javafx.com/javafx"
+    xmlns:fx="http://javafx.com/fxml"
+    fx:controller="umgc.NineTailsController">
+    <!-- RULES & USAGE -->
+    <children>
+        <Label wrapText="true"
+            text="Nine‑Tails is a shortest‑path puzzle on a 3×3 grid of coins.  
+– H = heads, T = tails.  
+– You may only click an H‑cell. Doing so flips it and any non‑diagonal neighbors.  
+– Goal: turn all coins to T in the fewest moves." />
+        <!-- your existing GridPane -->
+        <GridPane fx:id="grid" hgap="5" vgap="5">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10" />
+            </padding>
+        </GridPane>
+    </children>
+</VBox>

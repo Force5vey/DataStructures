@@ -10,7 +10,8 @@
    <children>
       <Label text="Welcome to the Sort, Search, and etc sandbox." />
       <Button text="Go to BST Page" onAction="#handleGoToBST" />
-      <Button text="Go to Huffman Page" onAction="#handleGoToHuffman"/>
+      <Button text="Go to Huffman Page" onAction="#handleGoToHuffman" />
+      <Button text="Go to Nine-Tails" onAction="#handleGoToNineTails" />
    </children>
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

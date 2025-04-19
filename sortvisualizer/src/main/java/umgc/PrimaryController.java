@@ -24,4 +24,10 @@ public class PrimaryController
     {
         App.setRoot("huffman");
     }
+
+    @FXML
+    private void handleGoToNineTails() throws IOException
+    {
+        App.setRoot("nine_tails");
+    }
 }
